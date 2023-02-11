@@ -11,6 +11,10 @@ class ThemeCubit extends Cubit<bool> {
   void changeTheme(bool value) {
     prefs!.setBool('theme', value);
     emit(value);
-    log('Dark theme: $value');
+    _debugCubit();
+  }
+
+  void _debugCubit() {
+    log('Dark theme: $state');
   }
 }

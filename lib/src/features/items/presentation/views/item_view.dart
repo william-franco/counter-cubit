@@ -21,9 +21,8 @@ class ItemsView extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<ItemsCubit, List<int>>(
           builder: (context, state) {
-            return state.isEmpty
-                ? const Center(child: Text('The list is empty.'))
-                : ListView.separated(
+            return state.isNotEmpty
+                ? ListView.separated(
                     itemCount: state.length,
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 8.0),
@@ -35,7 +34,8 @@ class ItemsView extends StatelessWidget {
                         title: Text('Item $index'),
                       );
                     },
-                  );
+                  )
+                : const Center(child: Text('The list is empty.'));
           },
         ),
       ),

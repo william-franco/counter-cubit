@@ -7,10 +7,10 @@ class BottomCubit extends Cubit<int> {
 
   void updateIndex(int index) {
     emit(index);
-    _debug();
+    _debugCubit();
   }
 
-  void _debug() {
+  void _debugCubit() {
     log('Current tab: $state');
   }
 }

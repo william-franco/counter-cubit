@@ -8,26 +8,26 @@ class ItemsCubit extends Cubit<List<int>> {
   int _count = 0;
 
   void addItemToList() {
-    state.add(_count++);
-    emit(state);
-    _debugProvider();
+    state.add(_count + 1);
+    emit([...state]);
+    _debugCubit();
   }
 
   void removeItemFromList() {
-    _count > 0 ? _count-- : 0;
+    _count > 0 ? _count - 1 : 0;
     state.isNotEmpty ? state.removeLast() : 0;
-    emit(state);
-    _debugProvider();
+    emit([...state]);
+    _debugCubit();
   }
 
   void removeAllItems() {
     _count = 0;
     state.clear();
-    emit(state);
-    _debugProvider();
+    emit([...state]);
+    _debugCubit();
   }
 
-  void _debugProvider() {
+  void _debugCubit() {
     log('List item: ${state.length}');
   }
 }

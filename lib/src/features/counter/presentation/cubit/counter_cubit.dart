@@ -7,15 +7,15 @@ class CounterCubit extends Cubit<int> {
 
   void increment() {
     emit(state + 1);
-    _debug();
+    _debugCubit();
   }
 
   void decrement() {
     emit(state - 1);
-    _debug();
+    _debugCubit();
   }
 
-  void _debug() {
+  void _debugCubit() {
     log('Counter: $state');
   }
 }
