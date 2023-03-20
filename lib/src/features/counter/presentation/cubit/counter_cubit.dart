@@ -11,7 +11,7 @@ class CounterCubit extends Cubit<int> {
   }
 
   void decrement() {
-    emit(state - 1);
+    emit(state > 0 ? state - 1 : 0);
     _debugCubit();
   }
 

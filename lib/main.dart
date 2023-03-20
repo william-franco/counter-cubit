@@ -3,16 +3,11 @@ import 'package:counter_cubit/src/features/settings/presentation/cubit/setting_c
 import 'package:counter_cubit/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-
+void main() {
   runApp(
-    DependencyInjector(
-      prefs: prefs,
-      child: const MyApp(),
+    const DependencyInjector(
+      child: MyApp(),
     ),
   );
 }
@@ -23,7 +18,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, bool>(
+    return BlocBuilder<ThemeCubit, ThemeMode>(
       builder: (context, state) {
         return MaterialApp.router(
           title: 'Counter Cubit',
@@ -34,7 +29,7 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData.dark(
             useMaterial3: true,
           ),
-          themeMode: state ? ThemeMode.dark : ThemeMode.light,
+          themeMode: context.watch<ThemeCubit>().theme,
           routerConfig: routesApp.routes,
         );
       },

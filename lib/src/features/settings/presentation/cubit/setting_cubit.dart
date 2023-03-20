@@ -1,20 +1,38 @@
 import 'dart:developer';
 
+import 'package:counter_cubit/src/storage/storage_service.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeCubit extends Cubit<bool> {
-  ThemeCubit(this.prefs) : super(prefs?.getBool('theme') ?? false);
+class ThemeCubit extends Cubit<ThemeMode> {
+  ThemeCubit(this._storage) : super(_storage.theme) {
+    _loadTheme();
+  }
 
-  final SharedPreferences? prefs;
+  final StorageService _storage;
 
-  void changeTheme(bool value) {
-    prefs!.setBool('theme', value);
-    emit(value);
+  ThemeMode theme = ThemeMode.light;
+
+  Future<void> _loadTheme() async {
+    theme = await _storage.getThemeMode();
+    emit(theme);
+    _debugCubit();
+  }
+
+  Future<void> updateThemeMode(ThemeMode? newThemeMode) async {
+    if (newThemeMode == null) return;
+
+    if (newThemeMode == theme) return;
+
+    theme = newThemeMode;
+
+    await _storage.setThemeMode(newThemeMode);
+    emit(theme);
+
     _debugCubit();
   }
 
   void _debugCubit() {
-    log('Dark theme: $state');
+    log('Theme: $theme');
   }
 }
