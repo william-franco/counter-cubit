@@ -22,10 +22,8 @@ class ItemsView extends StatelessWidget {
         child: BlocBuilder<ItemsCubit, List<int>>(
           builder: (context, state) {
             return state.isNotEmpty
-                ? ListView.separated(
+                ? ListView.builder(
                     itemCount: state.length,
-                    separatorBuilder: (context, index) =>
-                        const SizedBox(height: 8.0),
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: CircleAvatar(
