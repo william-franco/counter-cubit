@@ -1,8 +1,9 @@
-import 'package:counter_cubit/src/features/bottom/presentation/cubit/bottom_cubit.dart';
-import 'package:counter_cubit/src/features/counter/presentation/cubit/counter_cubit.dart';
-import 'package:counter_cubit/src/features/items/presentation/cubit/item_cubit.dart';
-import 'package:counter_cubit/src/features/settings/presentation/cubit/setting_cubit.dart';
-import 'package:counter_cubit/src/storage/storage_service.dart';
+import 'package:counter_cubit/src/features/bottom/view_models/bottom_view_model.dart';
+import 'package:counter_cubit/src/features/counter/view_models/counter_view_model.dart';
+import 'package:counter_cubit/src/features/items/view_models/item_view_model.dart';
+import 'package:counter_cubit/src/features/settings/repositories/setting_repository.dart';
+import 'package:counter_cubit/src/features/settings/view_models/setting_cubit.dart';
+import 'package:counter_cubit/src/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,23 +17,39 @@ class DependencyInjector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final service = StorageService();
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider(
-          create: (context) => BottomCubit(),
+        // Services
+        RepositoryProvider(
+          create: (context) => StorageService(),
         ),
-        BlocProvider(
-          create: (context) => CounterCubit(),
-        ),
-        BlocProvider(
-          create: (context) => ItemsCubit(),
-        ),
-        BlocProvider(
-          create: (context) => ThemeCubit(service),
+        // Repositories
+        RepositoryProvider(
+          create: (context) => SettingRepository(
+            storageService: context.read<StorageService>(),
+          ),
         ),
       ],
-      child: child,
+      child: MultiBlocProvider(
+        providers: [
+          // ViewModels
+          BlocProvider(
+            create: (context) => BottomViewModel(),
+          ),
+          BlocProvider(
+            create: (context) => CounterViewModel(),
+          ),
+          BlocProvider(
+            create: (context) => ItemsViewModel(),
+          ),
+          BlocProvider(
+            create: (context) => SettingViewModel(
+              settingRepository: context.read<SettingRepository>(),
+            ),
+          ),
+        ],
+        child: child,
+      ),
     );
   }
 }

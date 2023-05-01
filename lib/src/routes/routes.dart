@@ -1,4 +1,4 @@
-import 'package:counter_cubit/src/features/bottom/presentation/views/bottom_view.dart';
+import 'package:counter_cubit/src/features/bottom/views/bottom_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 

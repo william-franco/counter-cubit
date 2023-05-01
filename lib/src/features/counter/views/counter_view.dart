@@ -1,4 +1,4 @@
-import 'package:counter_cubit/src/features/counter/presentation/cubit/counter_cubit.dart';
+import 'package:counter_cubit/src/features/counter/view_models/counter_view_model.dart';
 import 'package:counter_cubit/src/widgets/molecules/app_bar_molecule.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +8,7 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<CounterViewModel>().state;
     return Scaffold(
       appBar: const AppBarMolecule(
         title: Text('Counter'),
@@ -19,13 +20,9 @@ class CounterView extends StatelessWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            BlocBuilder<CounterCubit, int>(
-              builder: (context, state) {
-                return Text(
-                  '$state',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              },
+            Text(
+              '$state',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
@@ -37,13 +34,17 @@ class CounterView extends StatelessWidget {
           FloatingActionButton(
             key: const Key('increment'),
             child: const Icon(Icons.add),
-            onPressed: () => context.read<CounterCubit>().increment(),
+            onPressed: () {
+              context.read<CounterViewModel>().increment();
+            },
           ),
           const SizedBox(height: 8),
           FloatingActionButton(
             key: const Key('decrement'),
             child: const Icon(Icons.remove),
-            onPressed: () => context.read<CounterCubit>().decrement(),
+            onPressed: () {
+              context.read<CounterViewModel>().decrement();
+            },
           ),
         ],
       ),

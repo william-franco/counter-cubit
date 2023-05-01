@@ -2,20 +2,20 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
+class CounterViewModel extends Cubit<int> {
+  CounterViewModel() : super(0);
 
   void increment() {
     emit(state + 1);
-    _debugCubit();
+    _debug();
   }
 
   void decrement() {
     emit(state > 0 ? state - 1 : 0);
-    _debugCubit();
+    _debug();
   }
 
-  void _debugCubit() {
+  void _debug() {
     log('Counter: $state');
   }
 }
