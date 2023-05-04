@@ -1,7 +1,11 @@
-import 'package:counter_cubit/src/features/items/view_models/item_view_model.dart';
-import 'package:counter_cubit/src/widgets/molecules/app_bar_molecule.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
+import 'package:counter_cubit/src/features/items/view_models/item_view_model.dart';
 
 class ItemsView extends StatelessWidget {
   const ItemsView({super.key});
@@ -10,7 +14,7 @@ class ItemsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<ItemsViewModel>().state;
     return Scaffold(
-      appBar: AppBarMolecule(
+      appBar: AppBar(
         title: const Text('Items'),
         actions: <Widget>[
           IconButton(

@@ -1,8 +1,13 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:counter_cubit/src/dependency_injector/dependency_injector.dart';
 import 'package:counter_cubit/src/features/settings/view_models/setting_cubit.dart';
 import 'package:counter_cubit/src/routes/routes.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(

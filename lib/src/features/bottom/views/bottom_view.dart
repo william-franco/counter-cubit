@@ -1,9 +1,14 @@
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:counter_cubit/src/features/bottom/view_models/bottom_view_model.dart';
 import 'package:counter_cubit/src/features/counter/views/counter_view.dart';
 import 'package:counter_cubit/src/features/items/views/item_view.dart';
 import 'package:counter_cubit/src/features/settings/views/setting_view.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomView extends StatefulWidget {
   const BottomView({super.key});

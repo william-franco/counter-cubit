@@ -1,7 +1,11 @@
+// Dart imports:
 import 'dart:developer';
 
-import 'package:counter_cubit/src/features/settings/repositories/setting_repository.dart';
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
+import 'package:counter_cubit/src/features/settings/repositories/setting_repository.dart';
 
 class SettingViewModel extends Cubit<bool> {
   final SettingRepository settingRepository;
