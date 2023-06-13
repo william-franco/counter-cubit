@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import 'package:counter_cubit/src/common_widgets/common_padding.dart';
 import 'package:counter_cubit/src/features/items/view_models/item_view_model.dart';
 
 class ItemsView extends StatelessWidget {
@@ -25,7 +26,7 @@ class ItemsView extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
+      body: CommonPadding(
         child: state.isNotEmpty
             ? ListView.builder(
                 itemCount: state.length,

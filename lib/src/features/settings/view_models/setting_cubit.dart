@@ -7,20 +7,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:counter_cubit/src/features/settings/repositories/setting_repository.dart';
 
-class SettingViewModel extends Cubit<bool> {
+abstract base class SettingViewModel extends Cubit<bool> {
+  SettingViewModel() : super(false);
+
+  Future<void> loadTheme();
+  Future<void> changeTheme({required bool isDarkMode});
+}
+
+base class SettingViewModelImpl extends Cubit<bool>
+    implements SettingViewModel {
   final SettingRepository settingRepository;
 
-  SettingViewModel({required this.settingRepository}) : super(false) {
-    _loadTheme();
+  SettingViewModelImpl({required this.settingRepository}) : super(false) {
+    loadTheme();
   }
 
-  Future<void> _loadTheme() async {
+  @override
+  Future<void> loadTheme() async {
     final isDarkMode = await settingRepository.readTheme();
     emit(isDarkMode);
     _debug();
   }
 
-  Future<void> changeTheme(bool isDarkMode) async {
+  @override
+  Future<void> changeTheme({required bool isDarkMode}) async {
     await settingRepository.updateTheme(isDarkTheme: isDarkMode);
     emit(isDarkMode);
     _debug();

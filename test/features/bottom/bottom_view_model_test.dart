@@ -10,7 +10,7 @@ void main() {
     late BottomViewModel bottomViewModel;
 
     setUp(() {
-      bottomViewModel = BottomViewModel();
+      bottomViewModel = BottomViewModelImpl();
     });
 
     test('initial state is 0', () {

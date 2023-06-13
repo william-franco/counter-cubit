@@ -25,12 +25,12 @@ class DependencyInjector extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         // Services
-        RepositoryProvider(
-          create: (context) => StorageService(),
+        RepositoryProvider<StorageService>(
+          create: (context) => StorageServiceImpl(),
         ),
         // Repositories
-        RepositoryProvider(
-          create: (context) => SettingRepository(
+        RepositoryProvider<SettingRepository>(
+          create: (context) => SettingRepositoryImpl(
             storageService: context.read<StorageService>(),
           ),
         ),
@@ -38,17 +38,17 @@ class DependencyInjector extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           // ViewModels
-          BlocProvider(
-            create: (context) => BottomViewModel(),
+          BlocProvider<BottomViewModel>(
+            create: (context) => BottomViewModelImpl(),
           ),
-          BlocProvider(
-            create: (context) => CounterViewModel(),
+          BlocProvider<CounterViewModel>(
+            create: (context) => CounterViewModelImpl(),
           ),
-          BlocProvider(
-            create: (context) => ItemsViewModel(),
+          BlocProvider<ItemsViewModel>(
+            create: (context) => ItemsViewModelImpl(),
           ),
-          BlocProvider(
-            create: (context) => SettingViewModel(
+          BlocProvider<SettingViewModel>(
+            create: (context) => SettingViewModelImpl(
               settingRepository: context.read<SettingRepository>(),
             ),
           ),

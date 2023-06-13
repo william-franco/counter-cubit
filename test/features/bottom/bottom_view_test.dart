@@ -23,8 +23,8 @@ void main() {
       final counterView = find.byType(CounterView);
       final itemsView = find.byType(ItemsView);
       final settingView = find.byType(SettingView);
-      final listIcon = (find.byIcon(Icons.list_alt_outlined));
-      final settingsIcon = (find.byIcon(Icons.settings_outlined));
+      final listIcon = find.byIcon(Icons.list_alt_outlined);
+      final settingsIcon = find.byIcon(Icons.settings_outlined);
 
       await tester.pumpWidget(widget);
 

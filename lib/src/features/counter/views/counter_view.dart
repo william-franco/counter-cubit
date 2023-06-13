@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
+import 'package:counter_cubit/src/common_widgets/common_padding.dart';
 import 'package:counter_cubit/src/features/counter/view_models/counter_view_model.dart';
 
 class CounterView extends StatelessWidget {
@@ -17,7 +18,7 @@ class CounterView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Counter'),
       ),
-      body: Center(
+      body: CommonPadding(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

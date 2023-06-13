@@ -10,7 +10,7 @@ void main() {
     late ItemsViewModel viewModel;
 
     setUp(() {
-      viewModel = ItemsViewModel();
+      viewModel = ItemsViewModelImpl();
     });
 
     test('initial state is empty list', () {

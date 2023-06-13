@@ -4,14 +4,23 @@ import 'dart:developer';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterViewModel extends Cubit<int> {
+abstract base class CounterViewModel extends Cubit<int> {
   CounterViewModel() : super(0);
 
+  void increment();
+  void decrement();
+}
+
+base class CounterViewModelImpl extends Cubit<int> implements CounterViewModel {
+  CounterViewModelImpl() : super(0);
+
+  @override
   void increment() {
     emit(state + 1);
     _debug();
   }
 
+  @override
   void decrement() {
     emit(state > 0 ? state - 1 : 0);
     _debug();
