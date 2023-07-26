@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:counter_cubit/src/dependency_injector/dependency_injector.dart';
+import 'package:counter_cubit/src/dependency_injector/locator_injector.dart';
 import 'package:counter_cubit/src/features/settings/view_models/setting_cubit.dart';
 import 'package:counter_cubit/src/routes/routes.dart';
 
 void main() {
+  locatorInjector();
   runApp(
     const DependencyInjector(
       child: MyApp(),

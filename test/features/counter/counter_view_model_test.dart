@@ -13,35 +13,48 @@ void main() {
       viewModel = CounterViewModelImpl();
     });
 
-    test('initial state is 0', () {
-      expect(viewModel.state, 0);
-    });
-
     blocTest(
-      'increment',
+      'initial state is []',
       build: () => viewModel,
-      act: (CounterViewModel viewModel) => viewModel.increment(),
-      expect: () => [
-        1,
-      ],
+      expect: () => <int>[],
     );
 
     blocTest(
-      'decrement',
-      build: () => viewModel..increment(),
-      act: (CounterViewModel viewModel) => viewModel.decrement(),
-      expect: () => [
-        0,
-      ],
+      'emits [1] when increment is called',
+      build: () => viewModel,
+      act: (viewModel) => viewModel.increment(),
+      expect: () => <int>[1],
+    );
+
+    blocTest(
+      'emits [41] when increment is called',
+      build: () => viewModel,
+      seed: () => 40,
+      act: (viewModel) => viewModel.increment(),
+      expect: () => <int>[41],
+    );
+
+    blocTest(
+      'emits [60] when decrement is called',
+      build: () => viewModel,
+      seed: () => 61,
+      act: (viewModel) => viewModel.decrement(),
+      expect: () => <int>[60],
+    );
+
+    blocTest(
+      'emits [0] when decrement is called',
+      build: () => viewModel,
+      seed: () => 1,
+      act: (viewModel) => viewModel.decrement(),
+      expect: () => <int>[0],
     );
 
     blocTest(
       'cannot decrement below zero',
       build: () => viewModel,
-      act: (CounterViewModel viewModel) => viewModel.decrement(),
-      expect: () => [
-        0,
-      ],
+      act: (viewModel) => viewModel.decrement(),
+      expect: () => <int>[0],
     );
   });
 }
