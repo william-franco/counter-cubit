@@ -1,49 +1,47 @@
 // Package imports:
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
 import 'package:counter_cubit/src/features/items/view_models/item_view_model.dart';
 
 void main() {
-  group('ItemsViewModel', () {
+  group('ItemsViewModelImpl', () {
     late ItemsViewModel viewModel;
 
     setUp(() {
       viewModel = ItemsViewModelImpl();
     });
 
-    test('initial state is empty list', () {
-      expect(viewModel.state, []);
+    test('addItemToList should update the model correctly', () {
+      viewModel.addItemToList();
+
+      expect(viewModel.state.count, equals(1));
+      expect(viewModel.state.items, equals([1]));
     });
 
-    blocTest(
-      'add item to list',
-      build: () => viewModel,
-      act: (ItemsViewModel viewModel) => viewModel.addItemToList(),
-      expect: () => [
-        [1]
-      ],
-    );
+    test('removeItemFromList should update the model correctly on count > 0',
+        () {
+      viewModel.addItemToList();
+      viewModel.removeItemFromList();
 
-    blocTest(
-      'remove item from list',
-      build: () => viewModel
-        ..addItemToList()
-        ..addItemToList(),
-      act: (ItemsViewModel viewModel) => viewModel.removeItemFromList(),
-      expect: () => [
-        [1]
-      ],
-    );
+      expect(viewModel.state.count, equals(0));
+      expect(viewModel.state.items, equals([]));
+    });
 
-    blocTest(
-      'remove all items from list',
-      build: () => viewModel
-        ..addItemToList()
-        ..addItemToList(),
-      act: (ItemsViewModel viewModel) => viewModel.removeAllItems(),
-      expect: () => [[]],
-    );
+    test('removeItemFromList should update the model correctly on count = 0',
+        () {
+      viewModel.removeItemFromList();
+
+      expect(viewModel.state.count, equals(0));
+      expect(viewModel.state.items, equals([]));
+    });
+
+    test('removeAllItems should update the model correctly', () {
+      viewModel.addItemToList();
+      viewModel.removeAllItems();
+
+      expect(viewModel.state.count, equals(0));
+      expect(viewModel.state.items, equals([]));
+    });
   });
 }

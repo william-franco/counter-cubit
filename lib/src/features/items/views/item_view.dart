@@ -13,7 +13,7 @@ class ItemsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<ItemsViewModel>().state;
+    final viewModel = context.watch<ItemsViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Items'),
@@ -27,9 +27,9 @@ class ItemsView extends StatelessWidget {
         ],
       ),
       body: CommonPadding(
-        child: state.isNotEmpty
+        child: viewModel.state.items.isNotEmpty
             ? ListView.builder(
-                itemCount: state.length,
+                itemCount: viewModel.state.items.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(

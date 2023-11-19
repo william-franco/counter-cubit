@@ -4,22 +4,27 @@ import 'dart:developer';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract base class BottomViewModel extends Cubit<int> {
-  BottomViewModel() : super(0);
+// Project imports:
+import 'package:counter_cubit/src/features/bottom/models/bottom_model.dart';
 
-  void changeIndexBottom(int index);
+abstract base class BottomViewModel extends Cubit<BottomModel> {
+  BottomViewModel() : super(BottomModel());
+
+  void changeIndexBottom({required int index});
 }
 
-base class BottomViewModelImpl extends Cubit<int> implements BottomViewModel {
-  BottomViewModelImpl() : super(0);
+base class BottomViewModelImpl extends Cubit<BottomModel>
+    implements BottomViewModel {
+  BottomViewModelImpl() : super(BottomModel());
 
   @override
-  void changeIndexBottom(int index) {
-    emit(index);
+  void changeIndexBottom({required int index}) {
+    state.indexTab = index;
+    emit(state);
     _debug();
   }
 
   void _debug() {
-    log('Current tab: $state');
+    log('Current tab: ${state.indexTab}');
   }
 }

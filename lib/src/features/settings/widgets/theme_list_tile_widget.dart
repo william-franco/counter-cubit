@@ -5,21 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:counter_cubit/src/features/settings/view_models/setting_cubit.dart';
+import 'package:counter_cubit/src/features/settings/view_models/setting_view_model.dart';
 
 class ThemeListTileWidget extends StatelessWidget {
   const ThemeListTileWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDarkTheme = context.watch<SettingViewModel>().state;
+    final viewModel = context.watch<SettingViewModel>();
     return ListTile(
       leading: const Icon(Icons.brightness_6_outlined),
       title: const Text('Dark Theme'),
       trailing: Switch(
-        value: isDarkTheme,
+        value: viewModel.state.isDarkTheme,
         onChanged: (bool enabled) {
-          context.read<SettingViewModel>().changeTheme(isDarkMode: enabled);
+          context.read<SettingViewModel>().changeTheme(isDarkTheme: enabled);
         },
       ),
     );

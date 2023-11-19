@@ -13,7 +13,7 @@ class CounterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<CounterViewModel>().state;
+    final viewModel = context.watch<CounterViewModel>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Counter'),
@@ -26,7 +26,7 @@ class CounterView extends StatelessWidget {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$state',
+              '${viewModel.state.count}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],

@@ -4,44 +4,45 @@ import 'dart:developer';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract base class ItemsViewModel extends Cubit<List<int>> {
-  ItemsViewModel() : super([]);
+// Project imports:
+import 'package:counter_cubit/src/features/items/models/item_model.dart';
+
+abstract base class ItemsViewModel extends Cubit<ItemsModel> {
+  ItemsViewModel() : super(ItemsModel());
 
   void addItemToList();
   void removeItemFromList();
   void removeAllItems();
 }
 
-base class ItemsViewModelImpl extends Cubit<List<int>>
+base class ItemsViewModelImpl extends Cubit<ItemsModel>
     implements ItemsViewModel {
-  ItemsViewModelImpl() : super([]);
-
-  int _count = 0;
+  ItemsViewModelImpl() : super(ItemsModel());
 
   @override
   void addItemToList() {
-    state.add(_count + 1);
-    emit([...state]);
+    state.items.add(state.count++);
+    emit(state);
     _debug();
   }
 
   @override
   void removeItemFromList() {
-    _count > 0 ? _count - 1 : 0;
-    state.isNotEmpty ? state.removeLast() : 0;
-    emit([...state]);
+    state.count > 0 ? state.count - 1 : 0;
+    state.items.isNotEmpty ? state.items.removeLast() : 0;
+    emit(state);
     _debug();
   }
 
   @override
   void removeAllItems() {
-    _count = 0;
-    state.clear();
-    emit([...state]);
+    state.count = 0;
+    state.items.clear();
+    emit(state);
     _debug();
   }
 
   void _debug() {
-    log('List item: ${state.length}');
+    log('List item: ${state.items.length}');
   }
 }

@@ -6,12 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:counter_cubit/src/dependency_injector/dependency_injector.dart';
-import 'package:counter_cubit/src/dependency_injector/locator_injector.dart';
-import 'package:counter_cubit/src/features/settings/view_models/setting_cubit.dart';
+import 'package:counter_cubit/src/features/settings/view_models/setting_view_model.dart';
 import 'package:counter_cubit/src/routes/routes.dart';
 
 void main() {
-  locatorInjector();
   runApp(
     const DependencyInjector(
       child: MyApp(),
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final isDarkTheme = context.watch<SettingViewModel>().state;
+    final viewModel = context.watch<SettingViewModel>();
     return MaterialApp.router(
       title: 'Counter Cubit',
       debugShowCheckedModeBanner: false,
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
       darkTheme: ThemeData.dark(
         useMaterial3: true,
       ),
-      themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+      themeMode: viewModel.state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
       routerConfig: routesApp.routes,
     );
   }

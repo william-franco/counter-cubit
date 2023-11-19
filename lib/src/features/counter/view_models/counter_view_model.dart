@@ -4,29 +4,35 @@ import 'dart:developer';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract base class CounterViewModel extends Cubit<int> {
-  CounterViewModel() : super(0);
+// Project imports:
+import 'package:counter_cubit/src/features/counter/models/counter_model.dart';
+
+abstract base class CounterViewModel extends Cubit<CounterModel> {
+  CounterViewModel() : super(CounterModel());
 
   void increment();
   void decrement();
 }
 
-base class CounterViewModelImpl extends Cubit<int> implements CounterViewModel {
-  CounterViewModelImpl() : super(0);
+base class CounterViewModelImpl extends Cubit<CounterModel>
+    implements CounterViewModel {
+  CounterViewModelImpl() : super(CounterModel());
 
   @override
   void increment() {
-    emit(state + 1);
+    state.count++;
+    emit(state);
     _debug();
   }
 
   @override
   void decrement() {
-    emit(state > 0 ? state - 1 : 0);
+    state.count--;
+    emit(state);
     _debug();
   }
 
   void _debug() {
-    log('Counter: $state');
+    log('Counter: ${state.count}');
   }
 }
